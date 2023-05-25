@@ -1,0 +1,29 @@
+@import "./partials/breakpoints";
+@import "./partials/mixins";
+@import "./partials/variables";
+@import "./partials/reset";
+@import "./layout/grid";
+
+@font-face {
+  font-family: "Satoshi-Regular";
+  src: local("Satoshi-Regular"), url("/assets/fonts/Satoshi-Regular.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi-Medium";
+  src: local("Satoshi-Medium"), url("/assets/fonts/Satoshi-Medium.woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi-Bold";
+  src: local("Satoshi-Bold"), url("/assets/fonts/Satoshi-Bold.woff2");
+  font-display: swap;
+}
+
+body {
+  background-color: $white-clr;
+  font-family: "Satoshi-Regular", sans-serif;
+  color: $black-clr;
+}

@@ -1,0 +1,29 @@
+@import "../../partials/variables";
+
+.data-column {
+  width: 100%;
+}
+
+.search-products {
+}
+
+.filter-products {
+  margin-bottom: 2rem;
+
+  &__searchField {
+    & label {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    & input {
+      width: 100%;
+      display: block;
+      background-color: $gray-200-clr;
+      border: 1px solid $gray-100-clr;
+      margin-top: 0.7rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+  }
+}

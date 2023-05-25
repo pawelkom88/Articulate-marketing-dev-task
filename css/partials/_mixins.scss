@@ -1,0 +1,18 @@
+@mixin flex($property1, $property2) {
+  display: flex;
+  justify-content: $property1;
+  align-items: $property2;
+}
+
+@mixin fadeIn {
+  animation: fadein 0.5s ease-in-out;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
