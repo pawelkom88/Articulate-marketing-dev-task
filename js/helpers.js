@@ -61,7 +61,7 @@ export function updateCards(cards) {
   injectCards(cards);
 }
 
-export function updateSortStatus(btn, { property, order }) {
+export function updateSortingStatus(btn, { property, order }) {
   const sortedByHeading = document.querySelector(".js-sorted-by");
 
   btn.classList.add(order === "asc" ? "btn-ascending" : "btn-descending");

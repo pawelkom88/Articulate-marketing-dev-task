@@ -1,6 +1,6 @@
 import { cardsData } from "./data.js";
 import { sortByProperty, updateCards } from "./helpers.js";
-import { injectCards, updateSortStatus } from "./helpers.js";
+import { injectCards, updateSortingStatus } from "./helpers.js";
 import { sortingOptions } from "./constants.js";
 
 function init() {
@@ -15,7 +15,7 @@ function init() {
       cardsData,
       sortingOptions.sortByNameAscending
     );
-    updateSortStatus(sortByNameBtn, sortingOptions.sortByNameAscending);
+    updateSortingStatus(sortByNameBtn, sortingOptions.sortByNameAscending);
     updateCards(sortedCardsByNameAscending);
   });
 
@@ -25,7 +25,7 @@ function init() {
       sortingOptions.sortByNameDescending
     );
 
-    updateSortStatus(sortByNameBtn, sortingOptions.sortByNameDescending);
+    updateSortingStatus(sortByNameBtn, sortingOptions.sortByNameDescending);
     updateCards(sortedCardsByNameDescending);
   });
 
@@ -35,7 +35,7 @@ function init() {
       sortingOptions.sortByPriceAscending
     );
 
-    updateSortStatus(sortByPriceBtn, sortingOptions.sortByPriceAscending);
+    updateSortingStatus(sortByPriceBtn, sortingOptions.sortByPriceAscending);
     updateCards(sortedCardsByPriceAscending);
   });
 
@@ -45,7 +45,7 @@ function init() {
       sortingOptions.sortByPriceDescending
     );
 
-    updateSortStatus(sortByPriceBtn, sortingOptions.sortByPriceDescending);
+    updateSortingStatus(sortByPriceBtn, sortingOptions.sortByPriceDescending);
     updateCards(sortedCardsByPriceDescending);
   });
 
