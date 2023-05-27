@@ -46,7 +46,6 @@ export function sortByProperty(cards, { property, order }) {
 }
 
 export function injectCards(cards) {
-  // duplicate ?
   const productsColumn = document.querySelector(".products-column");
 
   for (let i = 0; i < cards.length; i++) {
@@ -62,10 +61,10 @@ export function updateCards(cards) {
   injectCards(cards);
 }
 
-export function updateSortStatus(btn, order) {
+export function updateSortStatus(btn, { property, order }) {
   const sortedByHeading = document.querySelector(".js-sorted-by");
 
   btn.classList.add(order === "asc" ? "btn-ascending" : "btn-descending");
   btn.classList.remove(order === "asc" ? "btn-descending" : "btn-ascending");
-  sortedByHeading.textContent = `price (${order})`;
+  sortedByHeading.textContent = `${property} (${order})`;
 }

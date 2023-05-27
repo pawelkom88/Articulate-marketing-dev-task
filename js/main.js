@@ -1,25 +1,7 @@
 import { cardsData } from "./data.js";
 import { sortByProperty, updateCards } from "./helpers.js";
 import { injectCards, updateSortStatus } from "./helpers.js";
-
-export const sortingOrder = {
-  ascByName: {
-    property: "name",
-    order: "asc",
-  },
-  descByName: {
-    property: "name",
-    order: "desc",
-  },
-  ascByPrice: {
-    property: "price",
-    order: "asc",
-  },
-  descByPrice: {
-    property: "price",
-    order: "desc",
-  },
-};
+import { sortingOptions } from "./constants.js";
 
 function init() {
   injectCards(cardsData);
@@ -29,39 +11,41 @@ function init() {
   const sortByPriceBtn = document.querySelector(".sort-by-price-btn");
 
   sortByNameBtn.addEventListener("click", () => {
-    const sortedCardsByNameAscending = sortByProperty(cardsData, sortingOrder.ascByName);
-
-    updateSortStatus(sortByNameBtn, sortingOrder.ascByName.order);
+    const sortedCardsByNameAscending = sortByProperty(
+      cardsData,
+      sortingOptions.sortByNameAscending
+    );
+    updateSortStatus(sortByNameBtn, sortingOptions.sortByNameAscending);
     updateCards(sortedCardsByNameAscending);
   });
 
   sortByNameBtn.addEventListener("dblclick", () => {
-    const sortedCardsByNameDescending = sortByProperty(cardsData, {
-      property: "name",
-      order: "desc",
-    });
+    const sortedCardsByNameDescending = sortByProperty(
+      cardsData,
+      sortingOptions.sortByNameDescending
+    );
 
-    updateSortStatus(sortByNameBtn, "desc");
+    updateSortStatus(sortByNameBtn, sortingOptions.sortByNameDescending);
     updateCards(sortedCardsByNameDescending);
   });
 
   sortByPriceBtn.addEventListener("click", () => {
-    const sortedCardsByPriceAscending = sortByProperty(cardsData, {
-      property: "price",
-      order: "asc",
-    });
+    const sortedCardsByPriceAscending = sortByProperty(
+      cardsData,
+      sortingOptions.sortByPriceAscending
+    );
 
-    updateSortStatus(sortByPriceBtn, "asc");
+    updateSortStatus(sortByPriceBtn, sortingOptions.sortByPriceAscending);
     updateCards(sortedCardsByPriceAscending);
   });
 
   sortByPriceBtn.addEventListener("dblclick", () => {
-    const sortedCardsByPriceDescending = sortByProperty(cardsData, {
-      property: "price",
-      order: "desc",
-    });
+    const sortedCardsByPriceDescending = sortByProperty(
+      cardsData,
+      sortingOptions.sortByPriceDescending
+    );
 
-    updateSortStatus(sortByPriceBtn, "desc");
+    updateSortStatus(sortByPriceBtn, sortingOptions.sortByPriceDescending);
     updateCards(sortedCardsByPriceDescending);
   });
 
