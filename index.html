@@ -15,21 +15,27 @@
       <div class="products-grid">
         <div class="data-column">
           <div class="filter-products">
-            <label for="search-box">Filter by name</label>
+            <label class="label" for="search-box">Filter by name</label>
             <input id="search-box" type="text" placeholder="Start typing to filter" />
           </div>
+
+          <label class="label">Sort by</label>
           <div class="sort-products">
-            <button aria-label="sort products by name" class="btn btn-active btn-ascending sort-by-name-btn">
+            <button
+              aria-label="sort products by name"
+              class="btn btn-active btn-ascending sort-by-name-btn">
               Name
             </button>
-            <button aria-label="sort products by price" class="btn btn-inactive btn-descending sort-by-price-btn">
+            <button
+              aria-label="sort products by price"
+              class="btn btn-inactive btn-ascending sort-by-price-btn">
               Price
             </button>
           </div>
         </div>
         <div>
           <h2 class="products-grid__heading">
-            Sorted by <span class="js-sorted-by">price (ascending)</span>
+            Sorted by <span class="js-sorted-by">name (ascending)</span>
           </h2>
           <div class="products-column"></div>
         </div>

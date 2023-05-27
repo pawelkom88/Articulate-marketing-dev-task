@@ -22,7 +22,12 @@
   padding: 0.2rem;
 }
 
-@media (max-width: 860px) {
+@media (min-width: 480px) and (max-width: 860px) {
+  .sort-products {
+    width: 70%;
+  }
+}
+@media (max-width: 480px) {
   .sort-products {
     display: flex;
     justify-content: center;
@@ -62,6 +67,12 @@
   border-radius: 4px;
 }
 
+@media (max-width: 860px) {
+  .btn-active,
+  .btn-inactive {
+    cursor: default;
+  }
+}
 .btn-ascending::after,
 .btn-descending::after {
   position: absolute;
@@ -82,10 +93,6 @@
 .filter-products {
   margin-bottom: 2rem;
 }
-.filter-products label {
-  font-weight: bold;
-  font-size: 1.2rem;
-}
 .filter-products input {
   display: block;
   width: 100%;
@@ -95,6 +102,16 @@
   border-radius: 4px;
   margin-top: 0.7rem;
   padding: 0.5rem 1rem;
+}
+
+@media (min-width: 480px) and (max-width: 860px) {
+  .filter-products {
+    width: 70%;
+  }
+}
+.label {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 @keyframes fadein {
@@ -242,7 +259,7 @@
 }
 .products-grid__heading {
   font-size: 1.2rem;
-  color: #a6a6a6;
+  color: #A6A6A6;
   margin-bottom: 1rem;
 }
 .products-grid__heading span {
@@ -252,7 +269,8 @@
 @media (max-width: 860px) {
   .products-grid {
     grid-template-columns: 1fr;
+    place-items: center;
     margin-top: 2rem;
     gap: 2rem;
   }
-} /*# sourceMappingURL=grid.css.map */
+}/*# sourceMappingURL=grid.css.map */

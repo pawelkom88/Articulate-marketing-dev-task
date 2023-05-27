@@ -81,15 +81,10 @@
 
 .btn-descending::after {
   content: url("../../../assets/icons/chevron-up.png");
-  opacity: 0.3;
 }
 
 .filter-products {
   margin-bottom: 2rem;
-}
-.filter-products label {
-  font-weight: bold;
-  font-size: 1.2rem;
 }
 .filter-products input {
   display: block;
@@ -106,4 +101,8 @@
   .filter-products {
     width: 70%;
   }
+}
+.label {
+  font-weight: bold;
+  font-size: 1.2rem;
 }/*# sourceMappingURL=data-column.css.map */

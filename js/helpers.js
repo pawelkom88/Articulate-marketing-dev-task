@@ -39,8 +39,8 @@ export function createCardComponent(card) {
 export function sortByProperty(cards, { property, order }) {
   const cardsCopy = [...cards];
   const sortOrder = order === "asc" ? 1 : -1;
-  return cardsCopy.sort((a, b) => {
-    const sortedCards = a[property].localeCompare(b[property]);
+  return cardsCopy.sort((productA, productB) => {
+    const sortedCards = productA[property].localeCompare(productB[property]);
     return sortedCards * sortOrder;
   });
 }
@@ -57,6 +57,15 @@ export function injectCards(cards) {
 
 export function updateCards(cards) {
   const productsColumn = document.querySelector(".products-column");
+
   productsColumn.innerHTML = "";
   injectCards(cards);
+}
+
+export function updateSortStatus(btn, order) {
+  const sortedByHeading = document.querySelector(".js-sorted-by");
+
+  btn.classList.add(order === "asc" ? "btn-ascending" : "btn-descending");
+  btn.classList.remove(order === "asc" ? "btn-descending" : "btn-ascending");
+  sortedByHeading.textContent = `price (${order})`;
 }

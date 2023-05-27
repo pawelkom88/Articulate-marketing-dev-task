@@ -49,6 +49,7 @@
 @media (max-width: $tablet) {
   .products-grid {
     grid-template-columns: 1fr;
+    place-items: center;
     margin-top: 2rem;
     gap: 2rem;
   }
