@@ -6,28 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/main.css" />
     <script type="module" defer src="./js/main.js"></script>
-    <title>Document</title>
+    <title>Products</title>
   </head>
   <body>
     <section class="container">
       <h1 class="product-heading">Products</h1>
       <div class="horizontal-line" />
-      <div class="product-grid">
+      <div class="products-grid">
         <div class="data-column">
           <div class="filter-products">
-            <div class="filter-products__searchField">
-              <label for="search-box">Filter by <span class="js-filter-by">name</span></label>
-              <input id="search-box" type="text" placeholder="Start typing to filter" />
-            </div>
+            <label for="search-box">Filter by name</label>
+            <input id="search-box" type="text" placeholder="Start typing to filter" />
           </div>
-
-          <div class="search-products">
-            <!-- <label for="filter-box">Sort by </label>
-            <input id="filter-box" type="text" placeholder="Start typing to filter" /> -->
+          <div class="sort-products">
+            <button aria-label="sort products by name" class="btn btn-active btn-ascending sort-by-name-btn">
+              Name
+            </button>
+            <button aria-label="sort products by price" class="btn btn-inactive btn-descending sort-by-price-btn">
+              Price
+            </button>
           </div>
         </div>
         <div>
-          <h2 class="product-grid__heading">
+          <h2 class="products-grid__heading">
             Sorted by <span class="js-sorted-by">price (ascending)</span>
           </h2>
           <div class="products-column"></div>
