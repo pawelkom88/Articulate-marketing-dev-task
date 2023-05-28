@@ -90,6 +90,14 @@
 
 .clear-input-field {
   --opacity: 0;
+  opacity: var(--opacity);
+  position: absolute;
+  top: 3.2rem;
+  right: 1rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 100;
 }
 
 #search-box {

@@ -353,7 +353,6 @@ body {
 
 @media (prefers-reduced-motion) {
   * {
-    animation: none;
-    transition: none;
+    animation: fadein 2s ease-in-out backwards;
   }
 }/*# sourceMappingURL=main.css.map */
