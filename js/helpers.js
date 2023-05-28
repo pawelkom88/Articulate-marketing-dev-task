@@ -1,4 +1,4 @@
-import { sortingOptions } from "./constants.js";
+import { sortingOptions } from "./config.js";
 
 export function createCardImage(src, alt) {
   const cardImage = document.createElement("img");
@@ -38,7 +38,12 @@ export function createCardComponent(card) {
   return productCard;
 }
 
-export function sortByProperty(cards, { property = "name", order = 1 }) {
+export function sortCards(cards, sortDirection) {
+  const sortedCards = sortCardsByProperty(cards, sortDirection);
+  injectCards(sortedCards);
+}
+
+export function sortCardsByProperty(cards, { property = "name", order = 1 }) {
   const cardsCopy = [...cards];
 
   return cardsCopy.sort((productA, productB) => {
@@ -63,29 +68,19 @@ export function updateSortingStatus(btn, { property = "name", order = "asc" }) {
 
   btn.classList.add(order === 1 ? "btn-ascending" : "btn-descending");
   btn.classList.remove(order === 1 ? "btn-descending" : "btn-ascending");
-  sortedByHeading.textContent = `${property} (${order})`;
+  sortedByHeading.textContent = `${property} (${order === 1 ? "asc" : "desc"})`;
 }
 
-export function filterProducts(data, input) {
-  return data.filter(card => card.name.toLowerCase().includes(input.toLowerCase()));
-}
-
-// export function debounce(callback, timeout = 1000) {
-//   let timeoutId = null;
-//   return (...args) => {
-//     console.log(...args);
-//     window.clearTimeout(timeoutId);
-//     timeoutId = window.setTimeout(() => {
-//       callback.apply(null, args);
-//     }, timeout);
-//   };
-// }
-
-export function clearInputField(element) {
+export function clearInputField(queryOptions) {
+  const inputField = document.querySelector("#search-box");
   const clearInputFieldIcon = document.querySelector(".clear-input-field");
 
   clearInputFieldIcon.style.setProperty("--opacity", 0);
-  element.value = "";
+  clearInputFieldIcon.removeAttribute("tabindex", "0");
+  inputField.value = "";
+  queryOptions = { inputValue: "", sort: { property: "name", order: 1 } };
+
+  console.log(queryOptions);
 }
 
 export function updateSortHeadingTextContent(products) {
