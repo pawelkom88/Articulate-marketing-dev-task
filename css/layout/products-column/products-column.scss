@@ -4,14 +4,21 @@
 
 .products-column {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   place-items: end;
   gap: 1rem;
 }
 
-@media (max-width: $tablet) {
+@media (max-width: $desktop) {
   .products-column {
+    grid-template-columns: repeat(2, 1fr);
     place-items: center;
+  }
+}
+
+@media (max-width: $mobile) {
+  .products-column {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -76,7 +76,7 @@ export function filterProducts(data, input) {
 export function debounce(callback, timeout = 1000) {
   let timeoutId = null;
   return (...args) => {
-    console.log(...args)
+    console.log(...args);
     window.clearTimeout(timeoutId);
     timeoutId = window.setTimeout(() => {
       callback.apply(null, args);

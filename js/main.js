@@ -4,7 +4,7 @@ import { injectCards, updateSortingStatus, filterProducts } from "./helpers.js";
 import { sortingOptions } from "./constants.js";
 
 function init() {
-  injectCards(cardsData);
+  injectCards(sortByProperty(cardsData, sortingOptions.sortByNameAscending));
 
   const sortButtons = Array.from(document.querySelectorAll(".btn"));
   const sortByNameBtn = document.querySelector(".sort-by-name-btn");
@@ -65,19 +65,13 @@ function init() {
   inputValue.addEventListener("keyup", e => {
     const typedValue = e.target.value;
 
-    const gridTemplateColumns = document.querySelector(".products-column");
     const filterLabel = document.querySelector(".products-grid__heading");
-    const mediaQuery = window.matchMedia("(min-width: 480px)");
-
-    // const debouncedTypedValue = debounce(filterProducts(cardsData, typedValue));
 
     //extract to a function ??
 
     const filteredProducts = filterProducts(cardsData, typedValue);
 
-    if (filteredProducts.length < 4 && mediaQuery.matches) {
-      gridTemplateColumns.style.gridTemplateColumns = "1fr 1fr 1fr";
-    }
+    // handleResolutionChange(filteredProducts.length < 4, breakpoint);
 
     if (filteredProducts.length === 0) {
       filterLabel.textContent = "No results found";
