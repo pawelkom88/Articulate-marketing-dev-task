@@ -1,5 +1,4 @@
 import { cardsData } from "./data.js";
-
 import {
   injectCards,
   updateSortingStatus,
@@ -35,39 +34,40 @@ function init() {
   const { sortByNameAscending, sortByNameDescending, sortByPriceAscending, sortByPriceDescending } =
     sortingOptions;
 
-  sortByNameBtn.addEventListener("click", () => {
-    queryOptions.sort = sortByNameAscending;
-    updateSortingStatus(sortByNameBtn, sortByNameAscending);
-    sortCards(queriedProducts, sortByNameAscending);
-  });
-
-  sortByNameBtn.addEventListener("dblclick", () => {
-    queryOptions.sort = sortByNameDescending;
-    updateSortingStatus(sortByNameBtn, sortByNameDescending);
-    sortCards(queriedProducts, sortByNameDescending);
-  });
-
-  sortByPriceBtn.addEventListener("click", () => {
-    queryOptions.sort = sortByPriceAscending;
-    updateSortingStatus(sortByPriceBtn, sortByPriceAscending);
-    sortCards(queriedProducts, sortByPriceAscending);
-  });
-
-  sortByPriceBtn.addEventListener("dblclick", () => {
-    queryOptions.sort = sortByPriceDescending;
-    updateSortingStatus(sortByPriceBtn, sortByPriceDescending);
-    sortCards(queriedProducts, sortByPriceDescending);
-  });
-
   sortButtons.forEach(sortButton => {
     sortButton.addEventListener("click", () => {
+      switch (sortButton) {
+        case sortByNameBtn:
+          queryOptions.sort = sortByNameAscending;
+          updateSortingStatus(sortByNameBtn, sortByNameAscending);
+          break;
+        case sortByPriceBtn:
+          queryOptions.sort = sortByPriceAscending;
+          updateSortingStatus(sortByPriceBtn, sortByPriceAscending);
+          break;
+      }
+      sortCards(queriedProducts, queryOptions.sort);
+
       sortButtons.forEach(sortButton => {
         sortButton.classList.remove("btn-active");
         sortButton.classList.add("btn-inactive");
       });
-
       sortButton.classList.remove("btn-inactive");
       sortButton.classList.add("btn-active");
+    });
+
+    sortButton.addEventListener("dblclick", () => {
+      switch (sortButton) {
+        case sortByNameBtn:
+          queryOptions.sort = sortByNameDescending;
+          updateSortingStatus(sortByNameBtn, sortByNameDescending);
+          break;
+        case sortByPriceBtn:
+          queryOptions.sort = sortByPriceDescending;
+          updateSortingStatus(sortByPriceBtn, sortByPriceDescending);
+          break;
+      }
+      sortCards(queriedProducts, queryOptions.sort);
     });
   });
 
