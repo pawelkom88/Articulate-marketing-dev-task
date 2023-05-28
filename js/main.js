@@ -47,13 +47,6 @@ function init() {
           break;
       }
       sortCards(queriedProducts, queryOptions.sort);
-
-      sortButtons.forEach(sortButton => {
-        sortButton.classList.remove("btn-active");
-        sortButton.classList.add("btn-inactive");
-      });
-      sortButton.classList.remove("btn-inactive");
-      sortButton.classList.add("btn-active");
     });
 
     sortButton.addEventListener("dblclick", () => {
@@ -70,6 +63,14 @@ function init() {
       sortCards(queriedProducts, queryOptions.sort);
     });
   });
+
+  sortButtons.forEach(sortButton => {
+    sortButton.classList.remove("btn-active");
+    sortButton.classList.add("btn-inactive");
+  });
+
+  sortButton.classList.remove("btn-inactive");
+  sortButton.classList.add("btn-active");
 
   inputField.addEventListener("input", e => {
     queryOptions.inputValue = e.target.value;
