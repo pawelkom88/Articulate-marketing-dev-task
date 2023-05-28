@@ -68,3 +68,18 @@ export function updateSortingStatus(btn, { property, order }) {
   btn.classList.remove(order === "asc" ? "btn-descending" : "btn-ascending");
   sortedByHeading.textContent = `${property} (${order})`;
 }
+
+export function filterProducts(data, input) {
+  return data.filter(card => card.name.toLowerCase().includes(input.toLowerCase()));
+}
+
+export function debounce(callback, timeout = 1000) {
+  let timeoutId = null;
+  return (...args) => {
+    console.log(...args)
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => {
+      callback.apply(null, args);
+    }, timeout);
+  };
+}

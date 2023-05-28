@@ -67,12 +67,6 @@
   border-radius: 4px;
 }
 
-@media (max-width: 860px) {
-  .btn-active,
-  .btn-inactive {
-    cursor: default;
-  }
-}
 .btn-ascending::after,
 .btn-descending::after {
   position: absolute;
@@ -87,7 +81,6 @@
 
 .btn-descending::after {
   content: url("../../../assets/icons/chevron-up.png");
-  opacity: 0.3;
 }
 
 .filter-products {
