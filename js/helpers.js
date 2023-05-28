@@ -79,19 +79,21 @@ export function clearInputField(queryOptions) {
   clearInputFieldIcon.removeAttribute("tabindex", "0");
   inputField.value = "";
   queryOptions = { inputValue: "", sort: { property: "name", order: 1 } };
-
-  console.log(queryOptions);
 }
 
 export function updateSortHeadingTextContent(products) {
   const sortHeading = document.querySelector(".content");
   const filterLabel = document.querySelector(".js-sorted-by");
 
+  const {
+    sortByNameAscending: { property, order },
+  } = sortingOptions;
+
   if (products === 0) {
     sortHeading.textContent = "No results found";
     filterLabel.textContent = "";
   } else {
     sortHeading.textContent = "Sorted by ";
-    filterLabel.textContent = `${sortingOptions.sortByNameAscending.property} (${sortingOptions.sortByNameAscending.order})`;
+    filterLabel.textContent = `${property} (${order === 1 ? "asc" : "desc"})`;
   }
 }

@@ -1,4 +1,3 @@
-// import { Fuse } from "./fuse.basic.min.js";
 import { cardsData } from "./data.js";
 
 import {
@@ -9,7 +8,6 @@ import {
   sortCardsByProperty,
   sortCards,
 } from "./helpers.js";
-
 import { sortingOptions } from "./config.js";
 
 const options = {
@@ -96,8 +94,6 @@ function init() {
     if (key == "Enter") handleClearInputFieldIconClick();
   });
 
-  ///////////////////////////////////////////////////
-
   let lastEnterTime = 0;
 
   const maxInterval = 500;
@@ -111,7 +107,8 @@ function init() {
         sortCards(queriedProducts, sortByNameAscending);
 
         if (currentTime - lastEnterTime < maxInterval) {
-          sortCards(queriedProducts, sortByNameDescending);
+          console.log("double enetr detected");
+          sortCards([], sortByNameDescending);
         }
 
         lastEnterTime = currentTime;
@@ -119,12 +116,11 @@ function init() {
     });
   });
 
-  ///////////////////////////////////////////////////
-
   function handleClearInputFieldIconClick() {
     clearInputField(queryOptions);
     updateSortHeadingTextContent(cardsData.length);
-    injectCards(sortCardsByProperty(cardsData, queryOptions.sort));
+    queriedProducts = sortCardsByProperty(cardsData, {});
+    injectCards(sortCardsByProperty(queriedProducts, queryOptions.sort));
   }
 }
 
