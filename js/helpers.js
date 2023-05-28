@@ -26,7 +26,7 @@ export function createCardPrice(price) {
 }
 
 export function createCardComponent(card) {
-  const productCard = document.createElement("article");
+  const productCard = document.createElement("div");
   productCard.className = "product-card fadein";
   productCard.setAttribute("tabindex", "0");
   productCard.setAttribute("aria-label", `product card ${card.alt} - ${card.price}`);
@@ -38,41 +38,31 @@ export function createCardComponent(card) {
   return productCard;
 }
 
-export function sortByProperty(cards, { property, order }) {
+export function sortByProperty(cards, { property = "name", order = 1 }) {
   const cardsCopy = [...cards];
-  const sortOrder = order === "asc" ? 1 : -1;
 
   return cardsCopy.sort((productA, productB) => {
-    const sortedCards = productA[property].localeCompare(productB[property], undefined, {
-      numeric: true,
-      sensitivity: "base",
-    });
-
-    return sortedCards * sortOrder;
+    return (
+      productA[property].localeCompare(productB[property], undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }) * order
+    );
   });
 }
 
 export function injectCards(cards) {
   const productsColumn = document.querySelector(".products-column");
-
-  for (let i = 0; i < cards.length; i++) {
-    const card = createCardComponent(cards[i]);
-    productsColumn.appendChild(card);
-  }
-}
-
-export function updateCards(cards) {
-  const productsColumn = document.querySelector(".products-column");
-
   productsColumn.innerHTML = "";
-  injectCards(cards);
+
+  cards.forEach(card => productsColumn.appendChild(createCardComponent(card)));
 }
 
-export function updateSortingStatus(btn, { property, order }) {
+export function updateSortingStatus(btn, { property = "name", order = "asc" }) {
   const sortedByHeading = document.querySelector(".js-sorted-by");
 
-  btn.classList.add(order === "asc" ? "btn-ascending" : "btn-descending");
-  btn.classList.remove(order === "asc" ? "btn-descending" : "btn-ascending");
+  btn.classList.add(order === 1 ? "btn-ascending" : "btn-descending");
+  btn.classList.remove(order === 1 ? "btn-descending" : "btn-ascending");
   sortedByHeading.textContent = `${property} (${order})`;
 }
 
@@ -80,18 +70,21 @@ export function filterProducts(data, input) {
   return data.filter(card => card.name.toLowerCase().includes(input.toLowerCase()));
 }
 
-export function debounce(callback, timeout = 1000) {
-  let timeoutId = null;
-  return (...args) => {
-    console.log(...args);
-    window.clearTimeout(timeoutId);
-    timeoutId = window.setTimeout(() => {
-      callback.apply(null, args);
-    }, timeout);
-  };
-}
+// export function debounce(callback, timeout = 1000) {
+//   let timeoutId = null;
+//   return (...args) => {
+//     console.log(...args);
+//     window.clearTimeout(timeoutId);
+//     timeoutId = window.setTimeout(() => {
+//       callback.apply(null, args);
+//     }, timeout);
+//   };
+// }
 
 export function clearInputField(element) {
+  const clearInputFieldIcon = document.querySelector(".clear-input-field");
+
+  clearInputFieldIcon.style.setProperty("--opacity", 0);
   element.value = "";
 }
 

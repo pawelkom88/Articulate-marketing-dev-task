@@ -1,18 +1,18 @@
 export const sortingOptions = {
   sortByNameAscending: {
     property: "name",
-    order: "asc",
+    order: 1,
   },
   sortByNameDescending: {
     property: "name",
-    order: "desc",
+    order: -1,
   },
   sortByPriceAscending: {
     property: "price",
-    order: "asc",
+    order: 1,
   },
   sortByPriceDescending: {
     property: "price",
-    order: "desc",
+    order: -1,
   },
 };

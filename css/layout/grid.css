@@ -7,6 +7,7 @@
   }
 }
 .data-column {
+  position: relative;
   width: 100%;
 }
 
@@ -76,27 +77,19 @@
 }
 
 .btn-ascending::after {
-  content: url("../../../assets/icons/chevron-down.png");
-}
-
-.btn-descending::after {
   content: url("../../../assets/icons/chevron-up.png");
 }
 
+.btn-descending::after {
+  content: url("../../../assets/icons/chevron-down.png");
+}
+
 .filter-products {
-  --opacity: 0;
-  position: relative;
   margin-bottom: 2rem;
 }
-.filter-products::after {
-  opacity: var(--opacity);
-  content: url("../../../assets/icons/close.svg");
-  position: absolute;
-  top: 3.2rem;
-  right: 1rem;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+
+.clear-input-field {
+  --opacity: 0;
 }
 
 #search-box {

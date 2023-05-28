@@ -1,62 +1,69 @@
 import { cardsData } from "./data.js";
-import { debounce, sortByProperty, updateCards } from "./helpers.js";
+// import Fuse from "../js/fuse.basic.min";
+
 import {
   injectCards,
   updateSortingStatus,
   filterProducts,
   clearInputField,
   updateSortHeadingTextContent,
+  sortByProperty,
 } from "./helpers.js";
 import { sortingOptions } from "./constants.js";
 
 function init() {
-  injectCards(sortByProperty(cardsData, sortingOptions.sortByNameAscending));
+  injectCards(sortByProperty(cardsData, {}));
 
   const sortButtons = Array.from(document.querySelectorAll(".btn"));
   const sortByNameBtn = document.querySelector(".sort-by-name-btn");
   const sortByPriceBtn = document.querySelector(".sort-by-price-btn");
-  const inputValue = document.querySelector("#search-box");
-  const filterProductsContainer = document.querySelector(".filter-products");
+  const inputField = document.querySelector("#search-box");
+  const clearInputFieldIcon = document.querySelector(".clear-input-field");
 
-  clearInputField(inputValue);
+  let queriedProducts = cardsData;
+
+  clearInputField(inputField);
+
+  const queryOptions = { inputValue: "", sort: { property: "name", order: 1 } };
+
+  const { sortByNameAscending, sortByNameDescending, sortByPriceAscending, sortByPriceDescending } =
+    sortingOptions;
 
   sortByNameBtn.addEventListener("click", () => {
-    const sortedCardsByNameAscending = sortByProperty(
-      cardsData,
-      sortingOptions.sortByNameAscending
-    );
-    updateSortingStatus(sortByNameBtn, sortingOptions.sortByNameAscending);
-    updateCards(sortedCardsByNameAscending);
+    queryOptions.sort = sortByNameAscending;
+
+    const sortedCardsByNameAscending = sortByProperty(queriedProducts, sortByNameAscending);
+
+    updateSortingStatus(sortByNameBtn, sortByNameAscending);
+
+    injectCards(sortedCardsByNameAscending);
   });
 
   sortByNameBtn.addEventListener("dblclick", () => {
-    const sortedCardsByNameDescending = sortByProperty(
-      cardsData,
-      sortingOptions.sortByNameDescending
-    );
+    queryOptions.sort = sortByNameDescending;
 
-    updateSortingStatus(sortByNameBtn, sortingOptions.sortByNameDescending);
-    updateCards(sortedCardsByNameDescending);
+    const sortedCardsByNameDescending = sortByProperty(queriedProducts, sortByNameDescending);
+
+    updateSortingStatus(sortByNameBtn, sortByNameDescending);
+    injectCards(sortedCardsByNameDescending);
   });
 
   sortByPriceBtn.addEventListener("click", () => {
-    const sortedCardsByPriceAscending = sortByProperty(
-      cardsData,
-      sortingOptions.sortByPriceAscending
-    );
+    queryOptions.sort = sortByPriceAscending;
 
-    updateSortingStatus(sortByPriceBtn, sortingOptions.sortByPriceAscending);
-    updateCards(sortedCardsByPriceAscending);
+    const sortedCardsByPriceAscending = sortByProperty(queriedProducts, sortByPriceAscending);
+
+    updateSortingStatus(sortByPriceBtn, sortByPriceAscending);
+    injectCards(sortedCardsByPriceAscending);
   });
 
   sortByPriceBtn.addEventListener("dblclick", () => {
-    const sortedCardsByPriceDescending = sortByProperty(
-      cardsData,
-      sortingOptions.sortByPriceDescending
-    );
+    queryOptions.sort = sortByPriceDescending;
 
-    updateSortingStatus(sortByPriceBtn, sortingOptions.sortByPriceDescending);
-    updateCards(sortedCardsByPriceDescending);
+    const sortedCardsByPriceDescending = sortByProperty(queriedProducts, sortByPriceDescending);
+
+    updateSortingStatus(sortByPriceBtn, sortByPriceDescending);
+    injectCards(sortedCardsByPriceDescending);
   });
 
   sortButtons.forEach(sortButton => {
@@ -71,32 +78,39 @@ function init() {
     });
   });
 
-  inputValue.addEventListener("keyup", e => {
-    e.stopPropagation();
+  inputField.addEventListener("input", e => {
+    queryOptions.inputValue = e.target.value;
 
-    const typedValue = e.target.value;
-
-    //extract to a function ??
-
-    if (typedValue.length > 0) {
-      filterProductsContainer.style.setProperty("--opacity", 1);
-      filterProductsContainer.setAttribute("tabindex", "0");
+    if (queryOptions.inputValue.length > 0) {
+      clearInputFieldIcon.style.setProperty("--opacity", 1);
+      clearInputFieldIcon.setAttribute("tabindex", "0");
     } else {
-      filterProductsContainer.style.setProperty("--opacity", 0);
+      clearInputFieldIcon.style.setProperty("--opacity", 0);
     }
-    const filteredProducts = filterProducts(cardsData, typedValue);
 
-    updateSortHeadingTextContent(filteredProducts.length);
+    queriedProducts = filterProducts(cardsData, queryOptions.inputValue);
 
-    // two different array - make it one for all funcs (card data, sortedProducts)
-    updateCards(filteredProducts);
+    const sortedProductsByQueryOption = sortByProperty(queriedProducts, queryOptions.sort);
+
+    updateSortHeadingTextContent(sortedProductsByQueryOption.length);
+
+    injectCards(sortedProductsByQueryOption);
   });
 
-  filterProductsContainer.addEventListener("change", () => {
-    clearInputField(inputValue);
+  clearInputFieldIcon.addEventListener("click", () => {
+    clearInputField(inputField);
     updateSortHeadingTextContent(cardsData.length);
-    updateCards(sortByProperty(cardsData, sortingOptions.sortByNameAscending));
+    injectCards(sortByProperty(cardsData, queryOptions.sort));
   });
+
+  ///////////////////////////////////////////////////
+  console.log(queryOptions.sort);
+
+  // const fuse = new Fuse(cardsData, {
+  //   keys: ["title", "author.firstName"],
+  // });
+
+  // fuse.search("");
 }
 
 init();

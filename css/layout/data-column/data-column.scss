@@ -3,6 +3,7 @@
 @import "../../partials/mixins";
 
 .data-column {
+  position: relative;
   width: 100%;
 }
 
@@ -68,29 +69,28 @@
 }
 
 .btn-ascending::after {
-  content: url("../../../assets/icons/chevron-down.png");
-}
-
-.btn-descending::after {
   content: url("../../../assets/icons/chevron-up.png");
 }
 
+.btn-descending::after {
+  content: url("../../../assets/icons/chevron-down.png");
+}
+
 .filter-products {
+  margin-bottom: 2rem;
+}
+
+.clear-input-field {
   --opacity: 0;
 
-  position: relative;
-  margin-bottom: 2rem;
-
-  &::after {
-    opacity: var(--opacity);
-    content: url("../../../assets/icons/close.svg");
-    position: absolute;
-    top: 3.2rem;
-    right: 1rem;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
+  opacity: var(--opacity);
+  position: absolute;
+  top: 3.2rem;
+  right: 1rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 100;
 }
 
 #search-box {
