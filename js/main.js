@@ -1,6 +1,12 @@
 import { cardsData } from "./data.js";
 import { debounce, sortByProperty, updateCards } from "./helpers.js";
-import { injectCards, updateSortingStatus, filterProducts } from "./helpers.js";
+import {
+  injectCards,
+  updateSortingStatus,
+  filterProducts,
+  clearInputField,
+  updateSortHeadingTextContent,
+} from "./helpers.js";
 import { sortingOptions } from "./constants.js";
 
 function init() {
@@ -10,6 +16,9 @@ function init() {
   const sortByNameBtn = document.querySelector(".sort-by-name-btn");
   const sortByPriceBtn = document.querySelector(".sort-by-price-btn");
   const inputValue = document.querySelector("#search-box");
+  const filterProductsContainer = document.querySelector(".filter-products");
+
+  clearInputField(inputValue);
 
   sortByNameBtn.addEventListener("click", () => {
     const sortedCardsByNameAscending = sortByProperty(
@@ -63,24 +72,30 @@ function init() {
   });
 
   inputValue.addEventListener("keyup", e => {
-    const typedValue = e.target.value;
+    e.stopPropagation();
 
-    const filterLabel = document.querySelector(".products-grid__heading");
+    const typedValue = e.target.value;
 
     //extract to a function ??
 
+    if (typedValue.length > 0) {
+      filterProductsContainer.style.setProperty("--opacity", 1);
+      filterProductsContainer.setAttribute("tabindex", "0");
+    } else {
+      filterProductsContainer.style.setProperty("--opacity", 0);
+    }
     const filteredProducts = filterProducts(cardsData, typedValue);
 
-    // handleResolutionChange(filteredProducts.length < 4, breakpoint);
-
-    if (filteredProducts.length === 0) {
-      filterLabel.textContent = "No results found";
-    } else {
-      filterLabel.textContent = "Sorted by";
-    }
+    updateSortHeadingTextContent(filteredProducts.length);
 
     // two different array - make it one for all funcs (card data, sortedProducts)
     updateCards(filteredProducts);
+  });
+
+  filterProductsContainer.addEventListener("change", () => {
+    clearInputField(inputValue);
+    updateSortHeadingTextContent(cardsData.length);
+    updateCards(sortByProperty(cardsData, sortingOptions.sortByNameAscending));
   });
 }
 

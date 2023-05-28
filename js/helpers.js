@@ -1,3 +1,5 @@
+import { sortingOptions } from "./constants.js";
+
 export function createCardImage(src, alt) {
   const cardImage = document.createElement("img");
   cardImage.className = "product-card__image";
@@ -39,8 +41,13 @@ export function createCardComponent(card) {
 export function sortByProperty(cards, { property, order }) {
   const cardsCopy = [...cards];
   const sortOrder = order === "asc" ? 1 : -1;
+
   return cardsCopy.sort((productA, productB) => {
-    const sortedCards = productA[property].localeCompare(productB[property]);
+    const sortedCards = productA[property].localeCompare(productB[property], undefined, {
+      numeric: true,
+      sensitivity: "base",
+    });
+
     return sortedCards * sortOrder;
   });
 }
@@ -82,4 +89,21 @@ export function debounce(callback, timeout = 1000) {
       callback.apply(null, args);
     }, timeout);
   };
+}
+
+export function clearInputField(element) {
+  element.value = "";
+}
+
+export function updateSortHeadingTextContent(products) {
+  const sortHeading = document.querySelector(".content");
+  const filterLabel = document.querySelector(".js-sorted-by");
+
+  if (products === 0) {
+    sortHeading.textContent = "No results found";
+    filterLabel.textContent = "";
+  } else {
+    sortHeading.textContent = "Sorted by ";
+    filterLabel.textContent = `${sortingOptions.sortByNameAscending.property} (${sortingOptions.sortByNameAscending.order})`;
+  }
 }
