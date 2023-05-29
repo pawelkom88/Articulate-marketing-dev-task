@@ -95,28 +95,6 @@ function init() {
     if (key == "Enter") handleClearInputFieldIconClick();
   });
 
-  let lastEnterTime = 0;
-
-  const maxInterval = 500;
-
-  sortButtons.forEach(sortButton => {
-    sortButton.addEventListener("keydown", e => {
-      const { key } = e;
-
-      if (key == "Enter") {
-        const currentTime = new Date().getTime();
-        sortCards(queriedProducts, sortByNameAscending);
-
-        if (currentTime - lastEnterTime < maxInterval) {
-          console.log("double enetr detected");
-          sortCards([], sortByNameDescending);
-        }
-
-        lastEnterTime = currentTime;
-      }
-    });
-  });
-
   function handleClearInputFieldIconClick() {
     clearInputField(queryOptions);
     updateSortHeadingTextContent(cardsData.length);
